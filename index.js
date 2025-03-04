@@ -1,5 +1,6 @@
 import express, { response } from 'express'
 // Import de library express
+import movies from './data/movies.js'
 
 const app = express()
 // App take everything from express
