@@ -5,31 +5,6 @@ import movies from './data/movies.js'
 const app = express()
 // App take everything from express
 
-const movies = [
-    {
-    id : 1,
-    title : `L'amour ouf `,
-    genre : ''
-},
-{
-    id : 2,
-    title : 'Dune 2',
-    genre : 'Schience-Fiction'
-},
-
-{
-    id : 3,
-    title : 'Old boy',
-    genre : 'Thriller'
-},
-{
-    id : 4,
-    title : 'No other land',
-    genre : ''
-}
-
-
-]
 
 app.get('/', (request, response) => {
     return response.end(`Hello world`)
@@ -40,6 +15,23 @@ app.get('/movies', (request, response) => {
     return response.json(movies)
 })
 
+app.get('/movies/:id', (request, response) => {
+
+  const movieID = request.params.id
+    //save into a variable the value of the params
+    
+    //const {id} = request.params
+    //console.log(id)
+
+    const movieByID= movies.find(movie => movie.id == movieID)
+
+    if (!movieByID) {
+    //return response.json(`movie not found`)
+    return response.status(404).json({message : `movie not found` })
+}
+
+    return response.status(200).json(movieByID) 
+})
 
 app.listen(3000, () => {
     console.log(`server is running on port 3000`)
